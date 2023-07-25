@@ -1,7 +1,7 @@
 package uz.ruzibekov.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import uz.ruzibekov.domain.model.starship.StarshipBaseResponse
+import uz.ruzibekov.domain.model.response.starship.StarshipBaseResponse
 
 interface GetStarshipByNameUseCase {
 

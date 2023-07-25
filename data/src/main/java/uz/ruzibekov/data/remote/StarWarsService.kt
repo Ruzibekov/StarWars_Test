@@ -3,8 +3,8 @@ package uz.ruzibekov.data.remote
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import uz.ruzibekov.domain.model.personage.PersonagesBaseResponse
-import uz.ruzibekov.domain.model.starship.StarshipBaseResponse
+import uz.ruzibekov.domain.model.response.personage.PersonagesBaseResponse
+import uz.ruzibekov.domain.model.response.starship.StarshipBaseResponse
 
 interface StarWarsService {
 

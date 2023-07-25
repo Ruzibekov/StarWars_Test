@@ -1,4 +1,4 @@
-package uz.ruzibekov.domain.model.personage
+package uz.ruzibekov.domain.model.response.personage
 
 data class Personage(
     val birth_year: String,
@@ -16,5 +16,6 @@ data class Personage(
     val species: List<String>,
     val starships: List<String>,
     val url: String,
-    val vehicles: List<String>
+    val vehicles: List<String>,
+    var isFavorite: Boolean = false
 )

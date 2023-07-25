@@ -1,4 +1,4 @@
-package uz.ruzibekov.domain.model.starship
+package uz.ruzibekov.domain.model.response.starship
 
 import com.google.gson.annotations.SerializedName
 

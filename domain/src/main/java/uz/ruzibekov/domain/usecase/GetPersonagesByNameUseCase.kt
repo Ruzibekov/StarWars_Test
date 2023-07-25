@@ -1,7 +1,7 @@
 package uz.ruzibekov.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import uz.ruzibekov.domain.model.personage.PersonagesBaseResponse
+import uz.ruzibekov.domain.model.response.personage.PersonagesBaseResponse
 
 interface GetPersonagesByNameUseCase {
 

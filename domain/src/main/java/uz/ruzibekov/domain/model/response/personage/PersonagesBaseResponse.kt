@@ -1,4 +1,4 @@
-package uz.ruzibekov.domain.model.personage
+package uz.ruzibekov.domain.model.response.personage
 
 import com.google.gson.annotations.SerializedName
 

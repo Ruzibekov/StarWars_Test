@@ -1,5 +1,6 @@
 package uz.ruzibekov.starwars_test.ui
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
@@ -8,17 +9,27 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uz.ruzibekov.domain.model.personage.Personage
-import uz.ruzibekov.domain.model.starship.Starship
+import uz.ruzibekov.domain.model.entity.toStarshipEntity
+import uz.ruzibekov.domain.model.response.personage.Personage
+import uz.ruzibekov.domain.model.response.starship.Starship
+import uz.ruzibekov.domain.model.response.starship.toStarship
+import uz.ruzibekov.domain.usecase.AddFavoriteStarshipUseCase
+import uz.ruzibekov.domain.usecase.GetFavoriteStarshipsUseCase
 import uz.ruzibekov.domain.usecase.GetPersonagesByNameUseCase
 import uz.ruzibekov.domain.usecase.GetStarshipByNameUseCase
+import uz.ruzibekov.domain.usecase.RemoveStarshipFromFavoritesUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getPersonagesByName: GetPersonagesByNameUseCase,
-    private val getStarshipByName: GetStarshipByNameUseCase
+    private val getStarshipByName: GetStarshipByNameUseCase,
+    private val addFavoriteStarship: AddFavoriteStarshipUseCase,
+    private val getFavoriteStarships: GetFavoriteStarshipsUseCase,
+//    private val removeStarshipFromFavorites: RemoveStarshipFromFavoritesUseCase
 ) : ViewModel() {
 
     private val _search: MutableState<String> = mutableStateOf("")
@@ -27,7 +38,23 @@ class MainViewModel @Inject constructor(
     val personageList: SnapshotStateList<Personage> = mutableStateListOf()
     val starshipList: SnapshotStateList<Starship> = mutableStateListOf()
 
+    val personageFavoriteList: SnapshotStateList<Personage> = mutableStateListOf()
+    val starshipFavoriteList: SnapshotStateList<Starship> = mutableStateListOf()
+
     val state = MainState()
+
+
+    fun fetchFavoritesList() {
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            val list = getFavoriteStarships.getStarships()
+            starshipFavoriteList.apply {
+                clear()
+                list.forEach { starshipFavoriteList.add(it.toStarship()) }
+                Log.i("RRR", "favorites = ${list.size}")
+            }
+        }
+    }
 
     fun search(name: String) {
         _search.value = name
@@ -41,7 +68,6 @@ class MainViewModel @Inject constructor(
     private fun fetchPersonageListByName(name: String) {
         viewModelScope.launch {
             getPersonagesByName.getPersonages(name).collect { response ->
-
                 personageList.apply {
                     clear()
                     addAll(response.personages)
@@ -60,6 +86,22 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun isStarshipFavorite(starship: Starship): Boolean {
+        return starshipFavoriteList.any { it == starship }
+    }
+
+    fun addFavoriteStarship(starship: Starship) {
+        val scope = CoroutineScope(Dispatchers.IO)
+        if (isStarshipFavorite(starship).not())
+            scope.launch {
+                addFavoriteStarship.addStarship(starship.toStarshipEntity())
+            }
+    }
+
+    fun removeFavoriteStarship(starship: Starship) {
+
     }
 
 }
