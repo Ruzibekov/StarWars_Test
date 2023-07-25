@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import uz.ruzibekov.starwars_test.ui.MainViewModel
+import uz.ruzibekov.starwars_test.ui.components.StarWarsListView
 
 object HomeScreenView {
 
@@ -21,9 +22,11 @@ object HomeScreenView {
 
             TextField(
                 value = viewModel.search.value,
-                onValueChange = { viewModel.setSearchText(it) }
+                onValueChange = { viewModel.search(it) }
             )
 
+            StarWarsListView.Default(viewModel)
         }
     }
+
 }
