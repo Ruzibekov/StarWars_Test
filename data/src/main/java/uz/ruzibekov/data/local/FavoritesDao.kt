@@ -14,4 +14,6 @@ interface FavoritesDao {
     @Insert
     fun insertStarship(starshipEntity: StarshipEntity)
 
+    @Query("DELETE FROM favorite_starships WHERE id = :id")
+    fun deleteById(id: Int)
 }

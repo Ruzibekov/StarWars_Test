@@ -7,7 +7,7 @@ import uz.ruzibekov.domain.usecase.GetStarshipByNameUseCase
 import javax.inject.Inject
 
 
-class StarWarsRepository @Inject constructor(
+class RemoteRepository @Inject constructor(
     private val service: StarWarsService
 ) : GetPersonagesByNameUseCase, GetStarshipByNameUseCase {
 

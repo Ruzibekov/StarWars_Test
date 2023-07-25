@@ -1,7 +1,9 @@
 package uz.ruzibekov.domain.usecase
 
+import uz.ruzibekov.domain.model.response.starship.Starship
 
-class RemoveStarshipFromFavoritesUseCase {
 
-//    fun removeStarship(starship: Starship)
+interface RemoveStarshipFromFavoritesUseCase {
+
+    suspend fun removeStarship(starship: Starship)
 }

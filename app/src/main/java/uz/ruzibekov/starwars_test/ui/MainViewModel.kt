@@ -29,8 +29,11 @@ class MainViewModel @Inject constructor(
     private val getStarshipByName: GetStarshipByNameUseCase,
     private val addFavoriteStarship: AddFavoriteStarshipUseCase,
     private val getFavoriteStarships: GetFavoriteStarshipsUseCase,
-//    private val removeStarshipFromFavorites: RemoveStarshipFromFavoritesUseCase
+    private val removeStarshipFromFavorites: RemoveStarshipFromFavoritesUseCase
 ) : ViewModel() {
+
+    val scope = CoroutineScope(Dispatchers.IO)
+
 
     private val _search: MutableState<String> = mutableStateOf("")
     val search: State<String> get() = _search
@@ -45,7 +48,6 @@ class MainViewModel @Inject constructor(
 
 
     fun fetchFavoritesList() {
-        val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             val list = getFavoriteStarships.getStarships()
             starshipFavoriteList.apply {
@@ -93,7 +95,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun addFavoriteStarship(starship: Starship) {
-        val scope = CoroutineScope(Dispatchers.IO)
         if (isStarshipFavorite(starship).not())
             scope.launch {
                 addFavoriteStarship.addStarship(starship.toStarshipEntity())
@@ -101,7 +102,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun removeFavoriteStarship(starship: Starship) {
-
+        scope.launch {
+            removeStarshipFromFavorites.removeStarship(starship)
+        }
     }
 
 }
