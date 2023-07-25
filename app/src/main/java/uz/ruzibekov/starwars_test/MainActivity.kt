@@ -24,16 +24,12 @@ class MainActivity : ComponentActivity() {
             StarWars_TestTheme {
                 MainNavHost.Default(
                     navController = navController,
-                    state = viewModel.state
+                    state = viewModel.state,
+                    viewModel = viewModel
                 )
             }
         }
 
-        initialize()
-    }
-
-    private fun initialize(){
-        viewModel.startSearching()
     }
 
 }
