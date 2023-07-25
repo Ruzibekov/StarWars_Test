@@ -6,28 +6,33 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import uz.ruzibekov.domain.model.personage.Personage
+import uz.ruzibekov.domain.model.starship.Starship
 import uz.ruzibekov.starwars_test.R
-import uz.ruzibekov.starwars_test.ui.MainViewModel
 
 object StarWarsListView {
 
     @Composable
-    fun Default(viewModel: MainViewModel) {
+    fun Default(
+        personageList: List<Personage>,
+        starshipList: List<Starship>
+    ) {
         LazyColumn {
 
             item {
                 Label(textRes = R.string.title_personages)
             }
 
-            items(viewModel.personageList){personage ->
-                ItemPersonage(personage)
+            items(personageList) { personage ->
+                Item(personage)
             }
 
             item {
                 Label(textRes = R.string.title_starships)
             }
 
-//            items(viewModel.)
+            items(starshipList) {starship ->
+                Item(starship)
+            }
         }
     }
 
@@ -38,12 +43,12 @@ object StarWarsListView {
     }
 
     @Composable
-    private fun ItemPersonage(personage: Personage) {
+    private fun Item(personage: Personage) {
         Text(text = personage.name)
     }
 
     @Composable
-    private fun ItemStarship() {
-
+    private fun Item(starship: Starship) {
+        Text(text = starship.name)
     }
 }

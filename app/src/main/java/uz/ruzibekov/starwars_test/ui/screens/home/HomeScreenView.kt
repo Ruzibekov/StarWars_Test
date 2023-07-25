@@ -25,7 +25,10 @@ object HomeScreenView {
                 onValueChange = { viewModel.search(it) }
             )
 
-            StarWarsListView.Default(viewModel)
+            StarWarsListView.Default(
+                personageList = viewModel.personageList,
+                starshipList = viewModel.starshipList
+            )
         }
     }
 
