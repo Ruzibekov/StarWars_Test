@@ -18,6 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import uz.ruzibekov.starwars_test.R
 import uz.ruzibekov.starwars_test.ui.MainViewModel
+import uz.ruzibekov.starwars_test.ui.components.DataNotAvailableView
+import uz.ruzibekov.starwars_test.ui.components.LoadingView
 import uz.ruzibekov.starwars_test.ui.components.MainLabel
 import uz.ruzibekov.starwars_test.ui.components.MainListItem
 import uz.ruzibekov.starwars_test.ui.components.SearchTextField
@@ -39,42 +41,51 @@ object HomeScreenView {
                     Text(
                         text = stringResource(id = R.string.home),
                         style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(vertical = 16.dp),
                         color = StarWarsColors.White
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
                     SearchTextField.Default(viewModel = viewModel)
+
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         ) { paddingValues ->
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(vertical = 16.dp),
-            ) {
+            if (viewModel.dataIsNotEmpty())
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                ) {
 
-                LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp)) {
+                    LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp)) {
 
-                    item {
-                        MainLabel.Default(textRes = R.string.title_personages)
-                    }
+                        if (viewModel.personageList.isNotEmpty())
+                            item {
+                                MainLabel.Default(textRes = R.string.title_personages)
+                            }
 
-                    items(viewModel.personageList) { personage ->
-                        MainListItem.Default(personage, viewModel)
-                    }
+                        items(viewModel.personageList) { personage ->
+                            MainListItem.Default(personage, viewModel)
+                        }
 
-                    item {
-                        MainLabel.Default(textRes = R.string.title_starships)
-                    }
+                        if (viewModel.starshipList.isNotEmpty())
+                            item {
+                                MainLabel.Default(textRes = R.string.title_starships)
+                            }
 
-                    items(viewModel.starshipList) { starship ->
-                        MainListItem.Default(starship, viewModel)
+                        items(viewModel.starshipList) { starship ->
+                            MainListItem.Default(starship, viewModel)
+                        }
                     }
                 }
-            }
+
+            if (viewModel.dataIsNotEmpty().not() && viewModel.isLoading.value.not())
+                DataNotAvailableView.Default()
+
+            if (viewModel.isLoading.value)
+                LoadingView.Default()
         }
     }
 

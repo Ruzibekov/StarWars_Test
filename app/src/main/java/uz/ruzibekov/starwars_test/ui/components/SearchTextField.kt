@@ -1,5 +1,6 @@
 package uz.ruzibekov.starwars_test.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,12 +12,15 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import uz.ruzibekov.starwars_test.R
 import uz.ruzibekov.starwars_test.ui.MainViewModel
 import uz.ruzibekov.starwars_test.ui.theme.StarWarsColors
 import uz.ruzibekov.starwars_test.ui.theme.StarWarsIcons
@@ -46,13 +50,22 @@ object SearchTextField {
 
                 Spacer(modifier = Modifier.width(10.dp))
 
-                BasicTextField(
-                    value = viewModel.search.value,
-                    onValueChange = { viewModel.search(it) },
-                    modifier = Modifier.fillMaxWidth(),
-                    textStyle = MaterialTheme.typography.displayMedium,
-                    cursorBrush = SolidColor(StarWarsColors.Gray)
-                )
+                Box {
+
+                    if (viewModel.search.value.isEmpty())
+                        Text(
+                            text = stringResource(R.string.search),
+                            style = MaterialTheme.typography.displayMedium,
+                        )
+
+                    BasicTextField(
+                        value = viewModel.search.value,
+                        onValueChange = { viewModel.onSearch(it) },
+                        modifier = Modifier.fillMaxWidth(),
+                        textStyle = MaterialTheme.typography.displayMedium,
+                        cursorBrush = SolidColor(StarWarsColors.Gray)
+                    )
+                }
             }
         }
     }

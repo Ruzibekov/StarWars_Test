@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.ruzibekov.domain.model.response.personage.Personage
@@ -52,7 +53,7 @@ object MainListItem {
                     .height(60.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Column(modifier = Modifier.width(150.dp)) {
+                Column(modifier = Modifier.width(180.dp)) {
                     Text(
                         text = stringResource(id = R.string.name_s_text, data.name),
                         style = MaterialTheme.typography.labelMedium
@@ -117,7 +118,7 @@ object MainListItem {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
-                Column(modifier = Modifier.width(150.dp)) {
+                Column(modifier = Modifier.width(180.dp)) {
 
                     Text(
                         text = stringResource(R.string.name_s_text, data.name),
@@ -126,21 +127,23 @@ object MainListItem {
                     )
 
                     Text(
-                        text = stringResource(R.string.model_s_text, data.model),
+                        text = stringResource(R.string.manufacturer_s_text, data.manufacturer),
                         style = MaterialTheme.typography.labelMedium,
-                        maxLines = 1,
-                        fontSize = 12.sp
+                        maxLines = 2,
+                        fontSize = 12.sp,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
                 Spacer(modifier = Modifier.width(5.dp))
 
-                Column(modifier = Modifier.width(180.dp)) {
+                Column(modifier = Modifier.width(150.dp),) {
+
 
                     Text(
-                        text = stringResource(R.string.manufacturer_s_text, data.manufacturer),
+                        text = stringResource(R.string.model_s_text, data.model),
                         style = MaterialTheme.typography.labelMedium,
-                        maxLines = 2,
+                        maxLines = 1,
                         fontSize = 12.sp
                     )
 

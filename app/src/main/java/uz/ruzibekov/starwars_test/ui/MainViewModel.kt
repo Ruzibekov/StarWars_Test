@@ -1,5 +1,6 @@
 package uz.ruzibekov.starwars_test.ui
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
@@ -44,6 +45,8 @@ class MainViewModel @Inject constructor(
     private val _search: MutableState<String> = mutableStateOf("")
     val search: State<String> get() = _search
 
+    val isLoading: MutableState<Boolean> = mutableStateOf(false)
+
     val personageList: SnapshotStateList<Personage> = mutableStateListOf()
     val starshipList: SnapshotStateList<Starship> = mutableStateListOf()
 
@@ -70,13 +73,19 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun search(name: String) {
+    fun onSearch(name: String) {
         _search.value = name
 
         if (name.length > 1) {
+            isLoading.value = true
             fetchPersonageListByName(name)
             fetchStarshipListByName(name)
         }
+    }
+
+    @Composable
+    fun dataIsNotEmpty(): Boolean {
+        return personageList.isNotEmpty() && starshipList.isNotEmpty()
     }
 
     private fun fetchPersonageListByName(name: String) {
@@ -85,6 +94,7 @@ class MainViewModel @Inject constructor(
                 personageList.apply {
                     clear()
                     addAll(response.personages)
+                    isLoading.value = false
                 }
             }
         }
@@ -96,6 +106,7 @@ class MainViewModel @Inject constructor(
                 starshipList.apply {
                     clear()
                     addAll(response.starships)
+                    isLoading.value = false
                 }
             }
         }
@@ -109,12 +120,14 @@ class MainViewModel @Inject constructor(
         if (personageIsFavorite(data).not())
             scope.launch {
                 addFavoritePersonage.addPersonage(data.toPersonageEntity())
+                personageFavoriteList.add(data)
             }
     }
 
     fun removeFavoritePersonage(data: Personage) {
         scope.launch {
             removePersonageFromFavorites.removePersonage(data)
+            personageFavoriteList.remove(data)
         }
     }
 
@@ -126,12 +139,14 @@ class MainViewModel @Inject constructor(
     fun addFavoriteStarship(starship: Starship) {
         if (starshipIsFavorite(starship).not())
             scope.launch {
+                starshipFavoriteList.add(starship)
                 addFavoriteStarship.addStarship(starship.toStarshipEntity())
             }
     }
 
     fun removeFavoriteStarship(starship: Starship) {
         scope.launch {
+            starshipFavoriteList.remove(starship)
             removeStarshipFromFavorites.removeStarship(starship)
         }
     }

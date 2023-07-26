@@ -2,16 +2,16 @@ package uz.ruzibekov.starwars_test.ui.components
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import uz.ruzibekov.starwars_test.R
+import androidx.navigation.compose.currentBackStackEntryAsState
 import uz.ruzibekov.starwars_test.ui.navigation.ScreensRoute
+import uz.ruzibekov.starwars_test.ui.theme.StarWarsColors
 import uz.ruzibekov.starwars_test.ui.theme.StarWarsIcons
 
 object MainBottomNavView {
@@ -24,14 +24,12 @@ object MainBottomNavView {
                 navController = navController,
                 screenRoute = ScreensRoute.HomeScreen,
                 icon = StarWarsIcons.Home,
-                labelRes = R.string.home
             )
 
             Item(
                 navController = navController,
                 screenRoute = ScreensRoute.FavoritesScreen,
                 icon = StarWarsIcons.Favorite,
-                labelRes = R.string.favorites
             )
         }
     }
@@ -41,10 +39,11 @@ object MainBottomNavView {
         navController: NavHostController,
         screenRoute: ScreensRoute,
         icon: Int,
-        labelRes: Int
     ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+
         NavigationBarItem(
-            selected = navController.currentDestination?.route == screenRoute.route,
+            selected = navBackStackEntry?.destination?.route == screenRoute.route,
             onClick = { navController.navigate(screenRoute.route) },
             icon = {
                 Icon(
@@ -52,12 +51,11 @@ object MainBottomNavView {
                     contentDescription = "favorite icon"
                 )
             },
-            label = {
-                Text(
-                    text = stringResource(labelRes),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+            alwaysShowLabel = false,
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = StarWarsColors.White,
+                unselectedIconColor = StarWarsColors.Gray
+            )
         )
     }
 }
