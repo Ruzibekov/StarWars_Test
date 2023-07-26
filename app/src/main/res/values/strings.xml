@@ -4,4 +4,11 @@
     <string name="title_starships">Starships</string>
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
+
+    <string name="name_s_text">Name: %1$s</string>
+    <string name="gender_s_text">Gender: %1$s</string>
+    <string name="model_s_text">Model: %1$s</string>
+    <string name="manufacturer_s_text">Manufacturer: %1$s</string>
+    <string name="passengers_s_text">Passengers: %1$s</string>
+    <string name="starships_count_s_number">Starships count: %1$d</string>
 </resources>

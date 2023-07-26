@@ -16,7 +16,7 @@ object MainLabel {
         Text(
             text = stringResource(id = textRes),
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(start = 16.dp),
+            modifier = Modifier.padding(vertical = 5.dp),
             color = StarWarsColors.White
         )
     }

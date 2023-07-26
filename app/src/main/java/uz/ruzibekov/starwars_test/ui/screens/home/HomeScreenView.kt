@@ -1,6 +1,7 @@
 package uz.ruzibekov.starwars_test.ui.screens.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -52,10 +53,10 @@ object HomeScreenView {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(all = 16.dp),
+                    .padding(vertical = 16.dp),
             ) {
 
-                LazyColumn {
+                LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp)) {
 
                     item {
                         MainLabel.Default(textRes = R.string.title_personages)

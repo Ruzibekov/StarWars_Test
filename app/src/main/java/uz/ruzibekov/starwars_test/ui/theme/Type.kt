@@ -26,6 +26,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp
     ),
+    labelMedium = TextStyle(
+        fontFamily = SF_Pro,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+    ),
     displayMedium = TextStyle(
         fontFamily = FontFamily.Default,
         color = StarWarsColors.Gray
