@@ -24,14 +24,14 @@ object MainBottomNavView {
                 navController = navController,
                 screenRoute = ScreensRoute.HomeScreen,
                 icon = StarWarsIcons.Home,
-                labelRes = R.string.bottom_nav_home
+                labelRes = R.string.home
             )
 
             Item(
                 navController = navController,
                 screenRoute = ScreensRoute.FavoritesScreen,
                 icon = StarWarsIcons.Favorite,
-                labelRes = R.string.bottom_nav_favorites
+                labelRes = R.string.favorites
             )
         }
     }
