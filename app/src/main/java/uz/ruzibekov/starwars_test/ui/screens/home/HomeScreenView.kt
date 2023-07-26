@@ -49,7 +49,8 @@ object HomeScreenView {
 
                     Spacer(modifier = Modifier.height(10.dp))
                 }
-            }
+            },
+            containerColor = StarWarsColors.Background
         ) { paddingValues ->
 
             if (viewModel.dataIsEmpty().not())

@@ -78,8 +78,6 @@ class MainViewModel @Inject constructor(
 
         if (name.length > 1) {
             isLoading.value = true
-            personageList.clear()
-            starshipList.clear()
             fetchPersonageListByName(name)
             fetchStarshipListByName(name)
         }
@@ -96,6 +94,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun fetchPersonageListByName(name: String) {
+        personageList.clear()
         viewModelScope.launch {
             getPersonagesByName.getPersonages(name).collect { response ->
                 personageList.addAll(response.personages)
@@ -105,6 +104,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun fetchStarshipListByName(name: String) {
+        starshipList.clear()
         viewModelScope.launch {
             getStarshipByName.getStarships(name).collect { response ->
                 starshipList.addAll(response.starships)

@@ -12,6 +12,7 @@ import uz.ruzibekov.starwars_test.ui.MainViewModel
 import uz.ruzibekov.starwars_test.ui.components.MainBottomNavView
 import uz.ruzibekov.starwars_test.ui.screens.favorites.FavoritesScreenView
 import uz.ruzibekov.starwars_test.ui.screens.home.HomeScreenView
+import uz.ruzibekov.starwars_test.ui.theme.StarWarsColors
 
 object MainNavHost {
 
@@ -22,7 +23,8 @@ object MainNavHost {
         viewModel: MainViewModel
     ) {
         Scaffold(
-            bottomBar = { MainBottomNavView.Default(navController) }
+            bottomBar = { MainBottomNavView.Default(navController) },
+            containerColor = StarWarsColors.Background
         ) { paddingValues ->
             NavHost(
                 navController = navController,

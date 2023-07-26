@@ -16,16 +16,17 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = StarWarsColors.Dark,
     secondary = PurpleGrey80,
-    tertiary = Pink80,
+    tertiary = StarWarsColors.Gray,
     background = StarWarsColors.Background
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = StarWarsColors.Dark,
     secondary = PurpleGrey40,
-    tertiary = Pink40,
+    tertiary = StarWarsColors.Gray,
+    background = StarWarsColors.Background
 
 
     /* Other default colors to override
@@ -53,13 +54,13 @@ fun StarWars_TestTheme(
         }
 
         darkTheme -> DarkColorScheme
-        else -> DarkColorScheme // todo lightColorScheme
+        else -> LightColorScheme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = DarkColorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }

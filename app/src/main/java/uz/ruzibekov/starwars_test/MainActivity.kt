@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-            StarWars_TestTheme {
+            StarWars_TestTheme(darkTheme = false) {
                 MainNavHost.Default(
                     navController = navController,
                     viewModel = viewModel

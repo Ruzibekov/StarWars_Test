@@ -18,7 +18,9 @@ object MainBottomNavView {
 
     @Composable
     fun Default(navController: NavHostController) {
-        NavigationBar {
+        NavigationBar(
+            containerColor = StarWarsColors.Dark
+        ) {
 
             Item(
                 navController = navController,
@@ -44,7 +46,17 @@ object MainBottomNavView {
 
         NavigationBarItem(
             selected = navBackStackEntry?.destination?.route == screenRoute.route,
-            onClick = { navController.navigate(screenRoute.route) },
+            onClick = {
+                navController.navigate(screenRoute.route) {
+                    navController.graph.startDestinationRoute?.let { screen_route ->
+                        popUpTo(screen_route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
             icon = {
                 Icon(
                     painter = painterResource(id = icon),
@@ -53,8 +65,9 @@ object MainBottomNavView {
             },
             alwaysShowLabel = false,
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = StarWarsColors.White,
-                unselectedIconColor = StarWarsColors.Gray
+                selectedIconColor = StarWarsColors.Dark,
+                unselectedIconColor = StarWarsColors.Gray,
+                indicatorColor = StarWarsColors.White
             )
         )
     }

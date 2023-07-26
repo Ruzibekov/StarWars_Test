@@ -34,7 +34,8 @@ object FavoritesScreenView {
                     modifier = Modifier.padding(16.dp),
                     color = StarWarsColors.White
                 )
-            }
+            },
+            containerColor = StarWarsColors.Background
         ) { paddingValues ->
 
             Box(modifier = Modifier.padding(paddingValues)) {

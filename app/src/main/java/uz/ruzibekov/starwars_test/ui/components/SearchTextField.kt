@@ -31,7 +31,7 @@ object SearchTextField {
     fun Default(viewModel: MainViewModel) {
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = StarWarsColors.Dark
+            color = StarWarsColors.White
         ) {
 
             Row(
@@ -45,7 +45,7 @@ object SearchTextField {
                     painter = painterResource(id = StarWarsIcons.Search),
                     contentDescription = "search icon",
                     modifier = Modifier.size(24.dp),
-                    tint = StarWarsColors.Gray
+                    tint = StarWarsColors.Dark
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
@@ -56,6 +56,7 @@ object SearchTextField {
                         Text(
                             text = stringResource(R.string.search),
                             style = MaterialTheme.typography.displayMedium,
+                            color = StarWarsColors.Gray
                         )
 
                     BasicTextField(
@@ -63,7 +64,7 @@ object SearchTextField {
                         onValueChange = { viewModel.onSearch(it) },
                         modifier = Modifier.fillMaxWidth(),
                         textStyle = MaterialTheme.typography.displayMedium,
-                        cursorBrush = SolidColor(StarWarsColors.Gray),
+                        cursorBrush = SolidColor(StarWarsColors.Dark),
                         maxLines = 1
                     )
                 }

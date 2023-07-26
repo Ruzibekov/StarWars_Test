@@ -33,7 +33,7 @@ val Typography = Typography(
     ),
     displayMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        color = StarWarsColors.Gray
+        color = StarWarsColors.Dark
     )
     /* Other default text styles to override
     titleLarge = TextStyle(
