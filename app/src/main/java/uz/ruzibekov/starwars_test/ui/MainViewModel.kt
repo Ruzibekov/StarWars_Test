@@ -1,6 +1,5 @@
 package uz.ruzibekov.starwars_test.ui
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
@@ -32,9 +31,6 @@ class MainViewModel @Inject constructor(
     private val removeStarshipFromFavorites: RemoveStarshipFromFavoritesUseCase
 ) : ViewModel() {
 
-    val scope = CoroutineScope(Dispatchers.IO)
-
-
     private val _search: MutableState<String> = mutableStateOf("")
     val search: State<String> get() = _search
 
@@ -45,7 +41,7 @@ class MainViewModel @Inject constructor(
     val starshipFavoriteList: SnapshotStateList<Starship> = mutableStateListOf()
 
     val state = MainState()
-
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     fun fetchFavoritesList() {
         scope.launch {
@@ -53,7 +49,6 @@ class MainViewModel @Inject constructor(
             starshipFavoriteList.apply {
                 clear()
                 list.forEach { starshipFavoriteList.add(it.toStarship()) }
-                Log.i("RRR", "favorites = ${list.size}")
             }
         }
     }
@@ -81,7 +76,6 @@ class MainViewModel @Inject constructor(
     private fun fetchStarshipListByName(name: String) {
         viewModelScope.launch {
             getStarshipByName.getStarships(name).collect { response ->
-
                 starshipList.apply {
                     clear()
                     addAll(response.starships)

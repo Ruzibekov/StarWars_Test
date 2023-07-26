@@ -2,4 +2,6 @@
     <string name="app_name">Star Wars_Test</string>
     <string name="title_personages">Personages</string>
     <string name="title_starships">Starships</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_favorites">Favorites</string>
 </resources>
