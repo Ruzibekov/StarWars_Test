@@ -21,7 +21,9 @@ data class Starship(
     val pilots: List<String>,
     val starship_class: String,
     val url: String,
-)
+) {
+    var isFavorite: Boolean = false
+}
 
 fun StarshipEntity.toStarship(): Starship {
     return Starship(

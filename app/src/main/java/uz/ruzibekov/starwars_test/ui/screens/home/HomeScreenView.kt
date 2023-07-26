@@ -52,7 +52,7 @@ object HomeScreenView {
             }
         ) { paddingValues ->
 
-            if (viewModel.dataIsNotEmpty())
+            if (viewModel.dataIsEmpty().not())
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -81,7 +81,7 @@ object HomeScreenView {
                     }
                 }
 
-            if (viewModel.dataIsNotEmpty().not() && viewModel.isLoading.value.not())
+            if (viewModel.dataIsEmpty() && viewModel.isLoading.value.not())
                 DataNotAvailableView.Default()
 
             if (viewModel.isLoading.value)

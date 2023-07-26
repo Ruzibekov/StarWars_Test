@@ -16,10 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -38,7 +34,7 @@ object MainListItem {
 
     @Composable
     fun Default(data: Personage, viewModel: MainViewModel) {
-        var isFavorite by remember { mutableStateOf(viewModel.personageIsFavorite(data)) }
+        data.isFavorite = viewModel.personageIsFavorite(data)
 
         Surface(
             modifier = Modifier.padding(bottom = 5.dp),
@@ -78,17 +74,17 @@ object MainListItem {
 
                 IconButton(
                     onClick = {
-                        if (isFavorite) {
+                        if (data.isFavorite) {
                             viewModel.removeFavoritePersonage(data)
                         } else {
                             viewModel.addFavoritePersonage(data)
                         }
-                        isFavorite = !isFavorite
+                        data.isFavorite = !data.isFavorite
                     }
                 ) {
                     Icon(
                         painter = painterResource(
-                            id = if (isFavorite) StarWarsIcons.Favorite
+                            id = if (data.isFavorite) StarWarsIcons.Favorite
                             else StarWarsIcons.Unfavorite
                         ),
                         contentDescription = "favorite icon",
@@ -101,7 +97,7 @@ object MainListItem {
     @Composable
     fun Default(data: Starship, viewModel: MainViewModel) {
 
-        var isFavorite by remember { mutableStateOf(viewModel.starshipIsFavorite(data)) }
+        data.isFavorite = viewModel.starshipIsFavorite(data)
 
         Surface(
             modifier = Modifier.padding(bottom = 5.dp),
@@ -159,17 +155,17 @@ object MainListItem {
 
                 IconButton(
                     onClick = {
-                        if (isFavorite) {
+                        if (data.isFavorite) {
                             viewModel.removeFavoriteStarship(data)
                         } else {
                             viewModel.addFavoriteStarship(data)
                         }
-                        isFavorite = !isFavorite
+                        data.isFavorite = !data.isFavorite
                     }
                 ) {
                     Icon(
                         painter = painterResource(
-                            id = if (isFavorite) StarWarsIcons.Favorite
+                            id = if (data.isFavorite) StarWarsIcons.Favorite
                             else StarWarsIcons.Unfavorite
                         ),
                         contentDescription = "favorite icon",

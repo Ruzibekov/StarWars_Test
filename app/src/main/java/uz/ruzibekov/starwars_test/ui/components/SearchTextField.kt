@@ -63,7 +63,8 @@ object SearchTextField {
                         onValueChange = { viewModel.onSearch(it) },
                         modifier = Modifier.fillMaxWidth(),
                         textStyle = MaterialTheme.typography.displayMedium,
-                        cursorBrush = SolidColor(StarWarsColors.Gray)
+                        cursorBrush = SolidColor(StarWarsColors.Gray),
+                        maxLines = 1
                     )
                 }
             }

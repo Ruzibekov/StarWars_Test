@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import uz.ruzibekov.starwars_test.R
 import uz.ruzibekov.starwars_test.ui.MainViewModel
+import uz.ruzibekov.starwars_test.ui.components.DataNotAvailableView
 import uz.ruzibekov.starwars_test.ui.components.MainLabel
 import uz.ruzibekov.starwars_test.ui.components.MainListItem
 import uz.ruzibekov.starwars_test.ui.theme.StarWarsColors
@@ -37,25 +38,28 @@ object FavoritesScreenView {
         ) { paddingValues ->
 
             Box(modifier = Modifier.padding(paddingValues)) {
-
                 LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp)) {
 
-                    item {
-                        MainLabel.Default(textRes = R.string.title_personages)
-                    }
+                    if (viewModel.personageFavoriteList.isNotEmpty())
+                        item {
+                            MainLabel.Default(textRes = R.string.title_personages)
+                        }
 
                     items(viewModel.personageFavoriteList) { personage ->
                         MainListItem.Default(personage, viewModel)
                     }
 
-                    item {
-                        MainLabel.Default(textRes = R.string.title_starships)
-                    }
+                    if (viewModel.starshipFavoriteList.isNotEmpty())
+                        item {
+                            MainLabel.Default(textRes = R.string.title_starships)
+                        }
 
                     items(viewModel.starshipFavoriteList) { starship ->
                         MainListItem.Default(starship, viewModel)
                     }
                 }
+                if (viewModel.favoriteDataIsEmpty())
+                    DataNotAvailableView.Default()
             }
         }
     }

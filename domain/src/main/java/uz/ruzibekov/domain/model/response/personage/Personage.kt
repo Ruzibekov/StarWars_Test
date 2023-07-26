@@ -19,7 +19,9 @@ data class Personage(
     val starships: List<String>,
     val url: String,
     val vehicles: List<String>,
-)
+){
+    var isFavorite: Boolean = false
+}
 
 fun PersonageEntity.toPersonage(): Personage {
     return Personage(

@@ -78,24 +78,28 @@ class MainViewModel @Inject constructor(
 
         if (name.length > 1) {
             isLoading.value = true
+            personageList.clear()
+            starshipList.clear()
             fetchPersonageListByName(name)
             fetchStarshipListByName(name)
         }
     }
 
     @Composable
-    fun dataIsNotEmpty(): Boolean {
-        return personageList.isNotEmpty() && starshipList.isNotEmpty()
+    fun dataIsEmpty(): Boolean {
+        return personageList.isEmpty() || starshipList.isEmpty()
+    }
+
+    @Composable
+    fun favoriteDataIsEmpty(): Boolean {
+        return personageFavoriteList.isEmpty() && starshipFavoriteList.isEmpty()
     }
 
     private fun fetchPersonageListByName(name: String) {
         viewModelScope.launch {
             getPersonagesByName.getPersonages(name).collect { response ->
-                personageList.apply {
-                    clear()
-                    addAll(response.personages)
-                    isLoading.value = false
-                }
+                personageList.addAll(response.personages)
+                isLoading.value = false
             }
         }
     }
@@ -103,11 +107,8 @@ class MainViewModel @Inject constructor(
     private fun fetchStarshipListByName(name: String) {
         viewModelScope.launch {
             getStarshipByName.getStarships(name).collect { response ->
-                starshipList.apply {
-                    clear()
-                    addAll(response.starships)
-                    isLoading.value = false
-                }
+                starshipList.addAll(response.starships)
+                isLoading.value = false
             }
         }
     }
@@ -119,15 +120,15 @@ class MainViewModel @Inject constructor(
     fun addFavoritePersonage(data: Personage) {
         if (personageIsFavorite(data).not())
             scope.launch {
-                addFavoritePersonage.addPersonage(data.toPersonageEntity())
                 personageFavoriteList.add(data)
+                addFavoritePersonage.addPersonage(data.toPersonageEntity())
             }
     }
 
     fun removeFavoritePersonage(data: Personage) {
         scope.launch {
-            removePersonageFromFavorites.removePersonage(data)
             personageFavoriteList.remove(data)
+            removePersonageFromFavorites.removePersonage(data)
         }
     }
 
