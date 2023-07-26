@@ -14,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import uz.ruzibekov.starwars_test.ui.MainViewModel
@@ -49,7 +50,8 @@ object SearchTextField {
                     value = viewModel.search.value,
                     onValueChange = { viewModel.search(it) },
                     modifier = Modifier.fillMaxWidth(),
-                    textStyle = MaterialTheme.typography.displayMedium
+                    textStyle = MaterialTheme.typography.displayMedium,
+                    cursorBrush = SolidColor(StarWarsColors.Gray)
                 )
             }
         }

@@ -11,24 +11,34 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uz.ruzibekov.domain.model.entity.toStarshipEntity
+import uz.ruzibekov.domain.model.entity.personage.toPersonageEntity
+import uz.ruzibekov.domain.model.entity.starship.toStarshipEntity
 import uz.ruzibekov.domain.model.response.personage.Personage
+import uz.ruzibekov.domain.model.response.personage.toPersonage
 import uz.ruzibekov.domain.model.response.starship.Starship
 import uz.ruzibekov.domain.model.response.starship.toStarship
-import uz.ruzibekov.domain.usecase.AddFavoriteStarshipUseCase
-import uz.ruzibekov.domain.usecase.GetFavoriteStarshipsUseCase
-import uz.ruzibekov.domain.usecase.GetPersonagesByNameUseCase
-import uz.ruzibekov.domain.usecase.GetStarshipByNameUseCase
-import uz.ruzibekov.domain.usecase.RemoveStarshipFromFavoritesUseCase
+import uz.ruzibekov.domain.usecase.personage.AddFavoritePersonageUseCase
+import uz.ruzibekov.domain.usecase.personage.GetFavoritePersonageUseCase
+import uz.ruzibekov.domain.usecase.personage.GetPersonagesByNameUseCase
+import uz.ruzibekov.domain.usecase.personage.RemovePersonageFromFavoritesUseCase
+import uz.ruzibekov.domain.usecase.starship.AddFavoriteStarshipUseCase
+import uz.ruzibekov.domain.usecase.starship.GetFavoriteStarshipsUseCase
+import uz.ruzibekov.domain.usecase.starship.GetStarshipByNameUseCase
+import uz.ruzibekov.domain.usecase.starship.RemoveStarshipFromFavoritesUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getPersonagesByName: GetPersonagesByNameUseCase,
     private val getStarshipByName: GetStarshipByNameUseCase,
+
+    private val addFavoritePersonage: AddFavoritePersonageUseCase,
+    private val getFavoritePersonages: GetFavoritePersonageUseCase,
+    private val removePersonageFromFavorites: RemovePersonageFromFavoritesUseCase,
+
     private val addFavoriteStarship: AddFavoriteStarshipUseCase,
     private val getFavoriteStarships: GetFavoriteStarshipsUseCase,
-    private val removeStarshipFromFavorites: RemoveStarshipFromFavoritesUseCase
+    private val removeStarshipFromFavorites: RemoveStarshipFromFavoritesUseCase,
 ) : ViewModel() {
 
     private val _search: MutableState<String> = mutableStateOf("")
@@ -44,11 +54,19 @@ class MainViewModel @Inject constructor(
 
     fun fetchFavoritesList() {
         scope.launch {
+
+            val personages = getFavoritePersonages.getPersonages()
+            personageFavoriteList.apply {
+                clear()
+                personages.forEach { add(it.toPersonage()) }
+            }
+
             val list = getFavoriteStarships.getStarships()
             starshipFavoriteList.apply {
                 clear()
-                list.forEach { starshipFavoriteList.add(it.toStarship()) }
+                list.forEach { add(it.toStarship()) }
             }
+
         }
     }
 
@@ -83,12 +101,30 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun isStarshipFavorite(starship: Starship): Boolean {
+    fun personageIsFavorite(data: Personage): Boolean {
+        return personageFavoriteList.any { it == data }
+    }
+
+    fun addFavoritePersonage(data: Personage) {
+        if (personageIsFavorite(data).not())
+            scope.launch {
+                addFavoritePersonage.addPersonage(data.toPersonageEntity())
+            }
+    }
+
+    fun removeFavoritePersonage(data: Personage) {
+        scope.launch {
+            removePersonageFromFavorites.removePersonage(data)
+        }
+    }
+
+
+    fun starshipIsFavorite(starship: Starship): Boolean {
         return starshipFavoriteList.any { it == starship }
     }
 
     fun addFavoriteStarship(starship: Starship) {
-        if (isStarshipFavorite(starship).not())
+        if (starshipIsFavorite(starship).not())
             scope.launch {
                 addFavoriteStarship.addStarship(starship.toStarshipEntity())
             }

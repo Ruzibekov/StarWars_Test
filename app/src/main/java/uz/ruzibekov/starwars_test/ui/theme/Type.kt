@@ -16,17 +16,15 @@ val SF_Pro = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    titleLarge = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = SF_Pro,
         fontSize = 32.sp,
         fontWeight = FontWeight.Normal,
     ),
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+    bodyMedium = TextStyle(
+        fontFamily = SF_Pro,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 18.sp
     ),
     displayMedium = TextStyle(
         fontFamily = FontFamily.Default,

@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -31,10 +30,14 @@ object HomeScreenView {
 
         Scaffold(
             topBar = {
-                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                ) {
+
                     Text(
                         text = stringResource(id = R.string.home),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.bodyLarge,
                         color = StarWarsColors.White
                     )
 
@@ -48,8 +51,8 @@ object HomeScreenView {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(paddingValues)
+                    .padding(all = 16.dp),
             ) {
 
                 LazyColumn {
@@ -59,7 +62,7 @@ object HomeScreenView {
                     }
 
                     items(viewModel.personageList) { personage ->
-                        MainListItem.Default(personage)
+                        MainListItem.Default(personage, viewModel)
                     }
 
                     item {
@@ -67,10 +70,7 @@ object HomeScreenView {
                     }
 
                     items(viewModel.starshipList) { starship ->
-                        MainListItem.Default(
-                            data = starship,
-                            viewModel = viewModel
-                        )
+                        MainListItem.Default(starship, viewModel)
                     }
                 }
             }

@@ -20,7 +20,7 @@ object FavoritesScreenView {
             }
 
             items(viewModel.personageFavoriteList) { personage ->
-                MainListItem.Default(personage)
+                MainListItem.Default(personage, viewModel)
             }
 
             item {
@@ -28,10 +28,7 @@ object FavoritesScreenView {
             }
 
             items(viewModel.starshipFavoriteList) { starship ->
-                MainListItem.Default(
-                    data = starship,
-                    viewModel = viewModel
-                )
+                MainListItem.Default(starship, viewModel)
             }
         }
     }

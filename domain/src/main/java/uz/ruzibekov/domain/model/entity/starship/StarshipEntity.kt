@@ -1,4 +1,4 @@
-package uz.ruzibekov.domain.model.entity
+package uz.ruzibekov.domain.model.entity.starship
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

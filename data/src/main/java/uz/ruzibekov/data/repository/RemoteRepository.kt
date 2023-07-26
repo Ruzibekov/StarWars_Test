@@ -2,8 +2,8 @@ package uz.ruzibekov.data.repository
 
 import kotlinx.coroutines.flow.flow
 import uz.ruzibekov.data.remote.StarWarsService
-import uz.ruzibekov.domain.usecase.GetPersonagesByNameUseCase
-import uz.ruzibekov.domain.usecase.GetStarshipByNameUseCase
+import uz.ruzibekov.domain.usecase.personage.GetPersonagesByNameUseCase
+import uz.ruzibekov.domain.usecase.starship.GetStarshipByNameUseCase
 import javax.inject.Inject
 
 

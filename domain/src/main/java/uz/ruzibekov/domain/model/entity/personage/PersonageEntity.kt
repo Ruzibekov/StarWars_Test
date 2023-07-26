@@ -1,8 +1,12 @@
-package uz.ruzibekov.domain.model.response.personage
+package uz.ruzibekov.domain.model.entity.personage
 
-import uz.ruzibekov.domain.model.entity.personage.PersonageEntity
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import uz.ruzibekov.domain.model.response.personage.Personage
 
-data class Personage(
+@Entity(tableName = "favorite_personages")
+data class PersonageEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val birth_year: String,
     val created: String,
     val edited: String,
@@ -21,8 +25,9 @@ data class Personage(
     val vehicles: List<String>,
 )
 
-fun PersonageEntity.toPersonage(): Personage {
-    return Personage(
+fun Personage.toPersonageEntity(): PersonageEntity {
+    return PersonageEntity(
+        id = 0,
         birth_year,
         created,
         edited,

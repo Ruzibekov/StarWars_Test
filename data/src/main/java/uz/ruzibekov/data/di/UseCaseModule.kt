@@ -6,11 +6,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import uz.ruzibekov.data.repository.LocalRepository
 import uz.ruzibekov.data.repository.RemoteRepository
-import uz.ruzibekov.domain.usecase.AddFavoriteStarshipUseCase
-import uz.ruzibekov.domain.usecase.GetFavoriteStarshipsUseCase
-import uz.ruzibekov.domain.usecase.GetPersonagesByNameUseCase
-import uz.ruzibekov.domain.usecase.GetStarshipByNameUseCase
-import uz.ruzibekov.domain.usecase.RemoveStarshipFromFavoritesUseCase
+import uz.ruzibekov.domain.usecase.personage.AddFavoritePersonageUseCase
+import uz.ruzibekov.domain.usecase.personage.GetFavoritePersonageUseCase
+import uz.ruzibekov.domain.usecase.personage.GetPersonagesByNameUseCase
+import uz.ruzibekov.domain.usecase.personage.RemovePersonageFromFavoritesUseCase
+import uz.ruzibekov.domain.usecase.starship.AddFavoriteStarshipUseCase
+import uz.ruzibekov.domain.usecase.starship.GetFavoriteStarshipsUseCase
+import uz.ruzibekov.domain.usecase.starship.GetStarshipByNameUseCase
+import uz.ruzibekov.domain.usecase.starship.RemoveStarshipFromFavoritesUseCase
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,4 +33,13 @@ interface UseCaseModule {
 
     @Binds
     fun bindToFavoritesRepository3(repository: LocalRepository): RemoveStarshipFromFavoritesUseCase
+
+    @Binds
+    fun bindToFavoritesRepository4(repository: LocalRepository): AddFavoritePersonageUseCase
+
+    @Binds
+    fun bindToFavoritesRepository5(repository: LocalRepository): GetFavoritePersonageUseCase
+
+    @Binds
+    fun bindToFavoritesRepository6(repository: LocalRepository): RemovePersonageFromFavoritesUseCase
 }

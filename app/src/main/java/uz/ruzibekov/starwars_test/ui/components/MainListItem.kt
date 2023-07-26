@@ -1,6 +1,5 @@
 package uz.ruzibekov.starwars_test.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,7 +24,9 @@ import uz.ruzibekov.starwars_test.ui.theme.StarWarsIcons
 object MainListItem {
 
     @Composable
-    fun Default(personage: Personage) {
+    fun Default(data: Personage, viewModel: MainViewModel) {
+        var isFavorite by remember { mutableStateOf(viewModel.personageIsFavorite(data)) }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -33,23 +34,33 @@ object MainListItem {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = personage.name)
+            Text(text = data.name)
 
-            Image(
-                painter = painterResource(
-                    id = if (personage.isFavorite)
-                        StarWarsIcons.Favorite
-                    else StarWarsIcons.Unfavorite
-                ),
-                contentDescription = "favorite icon"
-            )
+            IconButton(
+                onClick = {
+                    if (isFavorite) {
+                        viewModel.removeFavoritePersonage(data)
+                    } else {
+                        viewModel.addFavoritePersonage(data)
+                    }
+                    isFavorite = !isFavorite
+                }
+            ) {
+                Icon(
+                    painter = painterResource(
+                        id = if (isFavorite) StarWarsIcons.Favorite
+                        else StarWarsIcons.Unfavorite
+                    ),
+                    contentDescription = "favorite icon",
+                )
+            }
         }
     }
 
     @Composable
     fun Default(data: Starship, viewModel: MainViewModel) {
 
-        var isFavorite by remember { mutableStateOf(viewModel.isStarshipFavorite(data)) }
+        var isFavorite by remember { mutableStateOf(viewModel.starshipIsFavorite(data)) }
 
         Row(
             modifier = Modifier

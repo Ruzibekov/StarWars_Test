@@ -1,4 +1,4 @@
-package uz.ruzibekov.domain.usecase
+package uz.ruzibekov.domain.usecase.starship
 
 import kotlinx.coroutines.flow.Flow
 import uz.ruzibekov.domain.model.response.starship.StarshipBaseResponse

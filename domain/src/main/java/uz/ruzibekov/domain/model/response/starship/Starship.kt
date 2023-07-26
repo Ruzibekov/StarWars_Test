@@ -1,6 +1,6 @@
 package uz.ruzibekov.domain.model.response.starship
 
-import uz.ruzibekov.domain.model.entity.StarshipEntity
+import uz.ruzibekov.domain.model.entity.starship.StarshipEntity
 
 data class Starship(
     val MGLT: String,
