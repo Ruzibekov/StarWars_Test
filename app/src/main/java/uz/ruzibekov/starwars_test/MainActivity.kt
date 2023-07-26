@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
             StarWars_TestTheme {
                 MainNavHost.Default(
                     navController = navController,
-                    state = viewModel.state,
                     viewModel = viewModel
                 )
             }

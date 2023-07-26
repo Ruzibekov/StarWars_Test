@@ -40,7 +40,6 @@ class MainViewModel @Inject constructor(
     val personageFavoriteList: SnapshotStateList<Personage> = mutableStateListOf()
     val starshipFavoriteList: SnapshotStateList<Starship> = mutableStateListOf()
 
-    val state = MainState()
     private val scope = CoroutineScope(Dispatchers.IO)
 
     fun fetchFavoritesList() {

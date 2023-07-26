@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import uz.ruzibekov.starwars_test.ui.MainState
 import uz.ruzibekov.starwars_test.ui.MainViewModel
 import uz.ruzibekov.starwars_test.ui.components.MainBottomNavView
 import uz.ruzibekov.starwars_test.ui.screens.favorites.FavoritesScreenView
@@ -20,7 +19,6 @@ object MainNavHost {
     @Composable
     fun Default(
         navController: NavHostController,
-        state: MainState,
         viewModel: MainViewModel
     ) {
         Scaffold(
@@ -35,7 +33,7 @@ object MainNavHost {
                     HomeScreenView.Default(viewModel)
                 }
                 composable(ScreensRoute.FavoritesScreen.route) {
-                    FavoritesScreenView.Default(state.favoritesState)
+                    FavoritesScreenView.Default(viewModel)
                 }
             }
         }
